@@ -323,7 +323,6 @@ var useful = useful || {};
 			// filter all elements based on the keyword
 			for (var a = 0, b = this.model.elements.length; a < b; a += 1) {
 				element = this.model.elements[a];
-				console.log(element.getAttribute('data-key'));
 				result = keyword.test(element.getAttribute('data-key'));
 				element.className = (result) ?
 					element.className.replace(/-hide/, '-show'):
@@ -333,22 +332,36 @@ var useful = useful || {};
 
 		this.resetFilter = function () {
 			// for all selectors
-			var selectors = this.fieldset.getElementsByTagName('select');
+			var options, selectors = this.fieldset.getElementsByTagName('select');
 			for (var a = 0, b = selectors.length; a < b; a += 1) {
 				// reset the selector
 				selectors[a].selectedIndex = 0;
+				// for all options in the selectors
+				options = selectors[a].getElementsByTagName('option');
+				for (var c = 0, d = options.length; c < d; c += 1) {
+					options[c].selected = false;
+				}
 			}
 			// re-apply the filters
 			this.applyFilter();
 		};
 
 		this.getKeywords = function (fallback) {
-			var regex = '', selectors = this.fieldset.getElementsByTagName('select');
+			var regex = '', selectors = this.fieldset.getElementsByTagName('select'), options, values = [];
 			// for all selectors
 			for (var a = 0, b = selectors.length; a < b; a += 1) {
-				// add its keyword to the regular expression
-				regex += '(?=.*' + selectors[a].value + ')';
+				// for all options in the selectors
+				values = [];
+				options = selectors[a].getElementsByTagName('option');
+				for (var c = 0, d = options.length; c < d; c += 1) {
+					// add its keyword to the regular expression
+					if (options[c].selected) { values.push(options[c].value); }
+				}
+				// add the term to the regexp
+				regex += '(?=.*' + values.join('|.*') + ')';
 			}
+			// construct the regexp
+			console.log('regex: ', regex);
 			// return the regular expression
 			return fallback || regex;
 		};
@@ -376,13 +389,18 @@ var useful = useful || {};
 		};
 
 		this.addSelector = function (options, count) {
+			var name, value, option;
 			// construct the selector of the filter tier
 			var select = document.createElement('select');
 			select.setAttribute('name', 'multi_' + count);
+			select.setAttribute('multiple', this.model.multiple);
 			select.addEventListener('change', this.onSelectChanged());
+			// add the empty option in single item selectors
+			if (!this.model.multiple) {
+				option = this.addOption(this.model.labels.empty, '');
+				select.appendChild(option);
+			}
 			// add the matching options to the selector
-			var name, value, option = this.addOption(this.model.labels.empty, '');
-			select.appendChild(option);
 			for (name in options) {
 				// the option to the selector
 				value = options[name];

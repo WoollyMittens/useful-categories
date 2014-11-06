@@ -48,14 +48,15 @@
   display: block;
   margin: 5px 0;
   width: 100%;
+  height: auto;
 }
 
-/* line 28, ../../src/scss/useful-categories.scss */
+/* line 29, ../../src/scss/useful-categories.scss */
 #useful-categories-list {
   margin: 0 0 1.3em 0;
   padding: 0;
 }
-/* line 31, ../../src/scss/useful-categories.scss */
+/* line 32, ../../src/scss/useful-categories.scss */
 #useful-categories-list li {
   -webkit-transition-property: -webkit-transform;
           transition-property: transform;
@@ -67,20 +68,20 @@
   vertical-align: middle;
   width: 33.3%;
 }
-/* line 39, ../../src/scss/useful-categories.scss */
+/* line 40, ../../src/scss/useful-categories.scss */
 #useful-categories-list li img {
   vertical-align: middle;
   width: 100%;
   height: auto;
 }
-/* line 45, ../../src/scss/useful-categories.scss */
+/* line 46, ../../src/scss/useful-categories.scss */
 #useful-categories-list .categories-show {
   position: static;
   -webkit-transform: scale(1);
       -ms-transform: scale(1);
           transform: scale(1);
 }
-/* line 49, ../../src/scss/useful-categories.scss */
+/* line 50, ../../src/scss/useful-categories.scss */
 #useful-categories-list .categories-hide {
   position: absolute;
   -webkit-transform: scale(0);

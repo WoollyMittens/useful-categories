@@ -21,7 +21,7 @@ This include can be added to the header or placed inline before the script is in
 ## How to start the script
 
 ```javascript
-var categories = new useful.Categories({
+var categories = new useful.Categories().init({
 	form : document.querySelector('#useful-categories-form'),
 	elements : document.querySelectorAll('#useful-categories-list li'),
 	active : 'none',

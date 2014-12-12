@@ -6,42 +6,42 @@
 	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
 */
 
-// create the constructor if needed
+// create the global object if needed
 var useful = useful || {};
-useful.Categories = useful.Categories || function () {};
 
-// extend the constructor
-useful.Categories.prototype.init = function (model) {
+// extend the global object
+useful.Categories = function () {
+
 	// PROPERTIES
 
 	"use strict";
 
-	this.model = model;
-
 	// METHODS
 
-	this.start = function () {
+	this.init = function (config) {
+		// store the config
+		this.config = config;
 		// create the interface
-		var form = this.model.form;
+		var form = this.config.form;
 		form.addEventListener('submit', this.onFormSubmitted());
 		// add the fieldset
 		this.fieldset = document.createElement('fieldset');
 		form.appendChild(this.fieldset);
 		// add the fields to the fieldset
 		this.updateFieldset();
-		// disable the start function so it can't be started twice
-		this.init = function () {};
+		// return the object
+		return this;
 	};
 
 	this.applyFilter = function (fallback) {
 		// get the keyword to go with the active filter
 		var element, result,
-			active = this.model.active;
+			active = this.config.active;
 		// construct a keyword test for all selectors
 		var keyword = new RegExp(this.getKeywords(fallback));
 		// filter all elements based on the keyword
-		for (var a = 0, b = this.model.elements.length; a < b; a += 1) {
-			element = this.model.elements[a];
+		for (var a = 0, b = this.config.elements.length; a < b; a += 1) {
+			element = this.config.elements[a];
 			result = keyword.test(element.getAttribute('data-key'));
 			element.className = (result) ?
 				element.className.replace(/-hide/, '-show'):
@@ -90,16 +90,16 @@ useful.Categories.prototype.init = function (model) {
 		this.fieldset.innerHTML = '';
 		// add the legend
 		var legend = document.createElement('legend');
-		legend.innerHTML = this.model.title;
+		legend.innerHTML = this.config.title;
 		this.fieldset.appendChild(legend);
 		// for all filters
 		var title, label, selector, count = 0;
-		for (title in this.model.filters) {
+		for (title in this.config.filters) {
 			// create the label
 			label = document.createElement('label');
 			label.innerHTML = title;
 			// add the selector
-			selector = this.addSelector(this.model.filters[title], count);
+			selector = this.addSelector(this.config.filters[title], count);
 			label.appendChild(selector);
 			// insert the label into the fieldset
 			count += 1;
@@ -112,11 +112,11 @@ useful.Categories.prototype.init = function (model) {
 		// construct the selector of the filter tier
 		var select = document.createElement('select');
 		select.setAttribute('name', 'multi_' + count);
-		select.setAttribute('multiple', this.model.multiple);
+		select.setAttribute('multiple', this.config.multiple);
 		select.addEventListener('change', this.onSelectChanged());
 		// add the empty option in single item selectors
-		if (!this.model.multiple) {
-			option = this.addOption(this.model.labels.empty, '');
+		if (!this.config.multiple) {
+			option = this.addOption(this.config.labels.empty, '');
 			select.appendChild(option);
 		}
 		// add the matching options to the selector
@@ -169,12 +169,6 @@ useful.Categories.prototype.init = function (model) {
 		// reset the filter
 		this.resetFilter();
 	};
-
-	// STARTUP
-
-	this.start();
-
-	return this;
 
 };
 

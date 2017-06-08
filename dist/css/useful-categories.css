@@ -47,8 +47,11 @@ Applies the "clearfix" hack to a container with floating content
   margin: 0 0 1.3em 0;
   padding: 0; }
   #useful-categories-list li {
+    -webkit-transition-property: -webkit-transform;
     transition-property: -webkit-transform;
     transition-property: transform;
+    transition-property: transform, -webkit-transform;
+    -webkit-transition-duration: 500ms;
     transition-duration: 500ms;
     display: inline-block;
     margin: 0 -0.3em 0 0;

@@ -1,12 +1,4 @@
-
-
-@import "mixins";
-
-/*
-	Reference Styling
-*/
-
-#useful-categories-form {
+#categories-form {
 	margin : 0 0 1.3em 0;
 	padding : 0;
 	fieldset {
@@ -26,7 +18,7 @@
 	}
 }
 
-#useful-categories-list {
+#categories-list {
 	margin : 0 0 1.3em 0;
 	padding : 0;
 	li {

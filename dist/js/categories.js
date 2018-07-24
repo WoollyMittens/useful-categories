@@ -1,20 +1,15 @@
 /*
 	Source:
-	van Creij, Maurice (2014). "useful.tiers.js: Tiered Filtering", version 20141127, http://www.woollymittens.nl/.
+	van Creij, Maurice (2018). "tiers.js: Tiered Filtering", http://www.woollymittens.nl/.
 
 	License:
 	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
 */
 
-// create the global object if needed
-var useful = useful || {};
-
-// extend the global object
-useful.Categories = function () {
+// establish the class
+var Categories = function (config) {
 
 	// PROPERTIES
-
-	"use strict";
 
 	// METHODS
 
@@ -23,7 +18,7 @@ useful.Categories = function () {
 		this.config = config;
 		// create the interface
 		var form = this.config.form;
-		form.addEventListener('submit', this.onFormSubmitted());
+		form.addEventListener('submit', this.onFormSubmitted.bind(this));
 		// add the fieldset
 		this.fieldset = document.createElement('fieldset');
 		form.appendChild(this.fieldset);
@@ -113,7 +108,7 @@ useful.Categories = function () {
 		var select = document.createElement('select');
 		select.setAttribute('name', 'multi_' + count);
 		select.setAttribute('multiple', this.config.multiple);
-		select.addEventListener('change', this.onSelectChanged());
+		select.addEventListener('change', this.onSelectChanged.bind(this));
 		// add the empty option in single item selectors
 		if (!this.config.multiple) {
 			option = this.addOption(this.config.labels.empty, '');
@@ -138,26 +133,6 @@ useful.Categories = function () {
 		return option;
 	};
 
-	// EVENTS
-
-	this.onFormSubmitted = function () {
-		var _this = this;
-		return function (evt) {
-			// cancel the click
-			evt.preventDefault();
-			// apply the filter
-			_this.applyFilter();
-		};
-	};
-
-	this.onSelectChanged = function () {
-		var _this = this;
-		return function () {
-			// apply the filter
-			_this.applyFilter();
-		};
-	};
-
 	// PUBLIC
 
 	this.filter = function (keywords) {
@@ -170,9 +145,25 @@ useful.Categories = function () {
 		this.resetFilter();
 	};
 
+	// EVENTS
+
+	this.onFormSubmitted = function (evt) {
+		// cancel the click
+		evt.preventDefault();
+		// apply the filter
+		this.applyFilter();
+	};
+
+	this.onSelectChanged = function (evt) {
+	// apply the filter
+		this.applyFilter();
+	};
+
+	this.init(config);
+
 };
 
 // return as a require.js module
 if (typeof module !== 'undefined') {
-	exports = module.exports = useful.Categories;
+	exports = module.exports = Categories;
 }

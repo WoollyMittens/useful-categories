@@ -1,4 +1,4 @@
-# useful.categories.js: Filter by Categories
+# categories.js: Filter by Categories
 
 Applies additive filters to a generic collection of content items.
 
@@ -9,19 +9,19 @@ Try the <a href="http://www.woollymittens.nl/default.php?url=useful-categories">
 The stylesheet is best included in the header of the document.
 
 ```html
-<link rel="stylesheet" href="./css/useful-categories.css"/>
+<link rel="stylesheet" href="./css/categories.css"/>
 ```
 
 This include can be added to the header or placed inline before the script is invoked.
 
 ```html
-<script src="./js/useful-categories.js"></script>
+<script src="./js/categories.js"></script>
 ```
 
 ## How to start the script
 
 ```javascript
-var categories = new useful.Categories().init({
+var categories = new Categories({
 	form : document.querySelector('#useful-categories-form'),
 	elements : document.querySelectorAll('#useful-categories-list li'),
 	active : 'none',

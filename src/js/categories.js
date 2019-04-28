@@ -164,5 +164,5 @@ var Categories = function (config) {
 };
 
 // return as a require.js module
-if (typeof define != 'undefined') define(['categories'], function () { return Categories });
+if (typeof define != 'undefined') define([], function () { return Categories });
 if (typeof module != 'undefined') module.exports = Categories;

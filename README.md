@@ -2,8 +2,6 @@
 
 Applies additive filters to a generic collection of content items.
 
-Try the <a href="http://www.woollymittens.nl/default.php?url=useful-categories">demo</a>.
-
 ## How to include the script
 
 The stylesheet is best included in the header of the document.

@@ -1,10 +1,92 @@
 <!DOCTYPE html>
 <html>
 	<head>
-    <title>Redirect to demo</title>
-		<script>document.location.replace('./dist/');</script>
+		<meta charset="UTF-8" />
+		<title>categories.js: Filter by Categories</title>
+		<style>
+			html { font-family:Sans-Serif; font-size:75%; height:100%; }
+			body { _height:100%; line-height:180%; margin:0; min-height:100%; padding:1%; }
+			.example { max-width:960px; margin:0 auto; padding:0; clear:both; }
+			.example > article, .example > aside { width:98%; padding:2%; }
+			.example-left > article, .example-left > aside { width:48%; padding:1%; float:left; }
+			.example-right > article, .example-right > aside { width:48%; padding:1%; float:right; }
+		</style>
 	</head>
 	<body>
-		<a href="./dist/">Start</a>
+		<section class="example example-right">
+			<article>
+				<h2>Filter by Categories</h2>
+				<p>Applies additive filters to a generic collection of content items.</p>
+				<p><a class="button downloadButton" href="http://github.com/WoollyMittens/useful-categories" target="_blank">Download (GitHub)</a></p>
+			</article>
+			<aside>
+
+				<!-- Cut below this -->
+				<style>@import url("./css/categories.css");</style>
+				<form id="categories-form"></form>
+				<ul id="categories-list">
+					<li data-key="malta.fauna.cat" class="categories-show"><img alt="" src="./img/figure_0.jpg"/></li>
+					<li data-key="malta.scenery.water" class="categories-show"><img alt="" src="./img/figure_7.jpg"/></li>
+					<li data-key="australia.scenery.land" class="categories-show"><img alt="" src="./img/photo_1.jpg"/></li>
+					<li data-key="malta.scenery.land" class="categories-show"><img alt="" src="./img/figure_9.jpg"/></li>
+					<li data-key="australia.scenery.land" class="categories-show"><img alt="" src="./img/photo_2.jpg"/></li>
+					<li data-key="malta.scenery.water" class="categories-show"><img alt="" src="./img/figure_5.jpg"/></li>
+					<li data-key="malta.scenery.land" class="categories-show"><img alt="" src="./img/figure_3.jpg"/></li>
+					<li data-key="australia.scenery.land" class="categories-show"><img alt="" src="./img/photo_3.jpg"/></li>
+					<li data-key="australia.fauna.bird" class="categories-show"><img alt="" src="./img/photo_6.jpg"/></li>
+					<li data-key="australia.scenery.land" class="categories-show"><img alt="" src="./img/photo_7.jpg"/></li>
+					<li data-key="malta.scenery.land" class="categories-show"><img alt="" src="./img/figure_6.jpg"/></li>
+					<li data-key="australia.scenery.water" class="categories-show"><img alt="" src="./img/photo_5.jpg"/></li>
+					<li data-key="malta.scenery.water" class="categories-show"><img alt="" src="./img/figure_8.jpg"/></li>
+					<li data-key="australia.scenery.water" class="categories-show"><img alt="" src="./img/photo_0.jpg"/></li>
+					<li data-key="australia.scenery.water" class="categories-show"><img alt="" src="./img/photo_9.jpg"/></li>
+					<li data-key="malta.scenery.land" class="categories-show"><img alt="" src="./img/figure_1.jpg"/></li>
+					<li data-key="australia.fauna.snake" class="categories-show"><img alt="" src="./img/photo_4.jpg"/></li>
+					<li data-key="malta.scenery.land" class="categories-show"><img alt="" src="./img/figure_2.jpg"/></li>
+					<li data-key="malta.scenery.water" class="categories-show"><img alt="" src="./img/figure_4.jpg"/></li>
+					<li data-key="australia.fauna.bird" class="categories-show"><img alt="" src="./img/photo_8.jpg"/></li>
+				</ul>
+				<script src="./js/categories.js"></script>
+				<script>
+				//<!--
+					// create a new instance of the script
+					var categories = new Categories({
+						form : document.querySelector('#categories-form'),
+						elements : document.querySelectorAll('#categories-list li'),
+						active : 'none',
+						title : 'Filter by:',
+						multiple : true,
+						labels : {
+							empty : '---',
+							first : 'Category ',
+							prefix : 'Pick from '
+						},
+						filters : {
+							'Location' : {
+								'Malta' : 'malta.',
+								'Australia' : 'australia.'
+							},
+							'Subject' : {
+								'Scenery' : '.scenery.',
+								'Fauna' : '.fauna.'
+							},
+							'Topic' : {
+								'Water' : '.water',
+								'Land' : '.land',
+								'Birds' : '.bird'
+							}
+						}
+					});
+				//-->
+				</script>
+				<!-- Cut above this -->
+
+				<h3>External control:</h3>
+				<p><a href="javascript:categories.reset();categories.filter('australia.fauna.bird');">Australian birds</a></p>
+				<p><a href="javascript:categories.reset();categories.filter('malta.scenery.land');">Maltese laneways</a></p>
+				<p><a href="javascript:categories.reset();">Reset</a></p>
+
+			</aside>
+		</section>
 	</body>
 </html>
